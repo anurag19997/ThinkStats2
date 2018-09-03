@@ -24,3 +24,8 @@ def main(script):
 
 if __name__ == '__main__':
     main(*sys.argv)
+    
+df = nsfg.ReadFemResp()
+df.head()
+
+    
