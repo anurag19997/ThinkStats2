@@ -13,20 +13,29 @@ import sys
 import nsfg
 import thinkstats2
 
-
+def validate(resp, preg):
+    preg_map = nsfg.MakePregMap(preg) 
+    for index, pregnum in resp.pregnum.items():
+        caseidresp = resp.caseid[index]
+        indices = preg_map[caseidresp]
+        if len(indices) != pregnum:
+            print(resp[index])
+            return False
+    
+    return True
+    
 def main(script):
     """Tests the functions in this module.
 
+
+    
     script: string script name
     """
-    print('%s: All tests passed.' % script)
     df_resp = nsfg.ReadFemResp()
     df_preg = nsfg.ReadFemPreg()
-    print(df_resp.pregnum.value_counts().sort_index())
-    #indices = nsfg.MakePregMap(df_preg)    
-    #print(df_resp[pregnum])
-    #for i in indices:
-     #   print(df_preg[indices].pregnum)
+    assert(df_resp.pregnum.value_counts().sum() == 7643)
+    assert(validate(df_resp, df_preg))
+    print('%s: All tests passed.' % script)
     
 
 if __name__ == '__main__':
