@@ -20,12 +20,16 @@ def main(script):
     script: string script name
     """
     print('%s: All tests passed.' % script)
-
+    df_resp = nsfg.ReadFemResp()
+    df_preg = nsfg.ReadFemPreg()
+    print(df_resp.pregnum.value_counts().sort_index())
+    #indices = nsfg.MakePregMap(df_preg)    
+    #print(df_resp[pregnum])
+    #for i in indices:
+     #   print(df_preg[indices].pregnum)
+    
 
 if __name__ == '__main__':
     main(*sys.argv)
-    
-df = nsfg.ReadFemResp()
-df.head()
 
     
